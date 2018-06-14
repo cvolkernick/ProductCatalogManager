@@ -1,15 +1,9 @@
 package com.example.admin.productcatalogmanager.utils;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.admin.productcatalogmanager.model.Category;
 import com.example.admin.productcatalogmanager.model.Product;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseManager {
 
@@ -23,6 +17,9 @@ public class DatabaseManager {
 
         dbCategories = db.getReference("categories");
         dbProducts = db.getReference("products");
+
+        Product p = new Product("Serving Tray", "Kitchen Supply", "A tray to serve food items on", 25, 24.99, "~/servingTray.png");
+        addProduct(p);
     }
 
     public static DatabaseManager getInstance() {
@@ -48,5 +45,21 @@ public class DatabaseManager {
 
     public void deleteCategory(String categoryName) {
         dbCategories.child(categoryName).setValue(null);
+    }
+
+    public void addProduct(Product product) {
+        dbProducts.child(product.getName()).setValue(product);
+    }
+
+    public DatabaseReference getProduct(String productName) {
+        return dbProducts.child(productName);
+    }
+
+    public void setProduct(Product product) {
+        dbProducts.child(product.getName()).setValue(product);
+    }
+
+    public void deleteProduct(String productName) {
+        dbProducts.child(productName).setValue(null);
     }
 }
