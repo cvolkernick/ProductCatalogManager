@@ -1,25 +1,31 @@
 package com.example.admin.productcatalogmanager.utils;
 
+import android.util.Log;
+
 import com.example.admin.productcatalogmanager.model.Category;
 import com.example.admin.productcatalogmanager.model.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 
     private static DatabaseManager instance = null;
     FirebaseDatabase db;
-    DatabaseReference dbCategories;
-    DatabaseReference dbProducts;
 
+    DatabaseReference dbCategories;
+
+    DatabaseReference dbProducts;
     private DatabaseManager(){
         db = FirebaseDatabase.getInstance();
 
         dbCategories = db.getReference("categories");
         dbProducts = db.getReference("products");
-
-        Product p = new Product("Serving Tray", "Kitchen Supply", "A tray to serve food items on", 25, 24.99, "~/servingTray.png");
-        addProduct(p);
     }
 
     public static DatabaseManager getInstance() {
@@ -28,6 +34,14 @@ public class DatabaseManager {
         }
 
         return instance;
+    }
+
+    public DatabaseReference getDbCategories() {
+        return dbCategories;
+    }
+
+    public DatabaseReference getDbProducts() {
+        return dbProducts;
     }
 
     public void addCategory(String categoryName) {

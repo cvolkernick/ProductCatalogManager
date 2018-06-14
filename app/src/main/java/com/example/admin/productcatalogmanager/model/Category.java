@@ -8,6 +8,8 @@ public class Category {
     private String name;
     private List<Product> products;
 
+    public Category() {}
+
     public Category(String name) {
         this.name = name;
         products = new ArrayList<>();
@@ -35,5 +37,10 @@ public class Category {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
