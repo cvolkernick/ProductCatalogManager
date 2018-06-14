@@ -4,14 +4,14 @@ public class Product {
 
     private String name;
 
-    private Category category;
+    private String category;
     private String description;
     private int stockQty;
     private double price;
     private String imagePath;
     public Product(){ }
 
-    public Product(String name, Category category, String description, int stockQty, double price, String imagePath) {
+    public Product(String name, String category, String description, int stockQty, double price, String imagePath) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -28,11 +28,11 @@ public class Product {
         this.name = name;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
