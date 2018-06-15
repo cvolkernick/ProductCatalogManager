@@ -18,10 +18,15 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
     var products = ArrayList<Product>()
     var presenter: CategoryPresenter = CategoryPresenter()
     var productsAdapter: ProductsAdapter = ProductsAdapter(this, products)
+    lateinit var clickedCategory: String
 
     override fun OnDisplayProducts(products: Iterable<Product>) {
         this.products!!.clear()
-        this.products!!.addAll(products!!)
+        for (product in products) {
+            if (product.category.equals(clickedCategory)) {
+                this.products.add(product);
+            }
+        }
         productsAdapter.notifyDataSetChanged()
     }
 
@@ -32,10 +37,11 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
+        clickedCategory = intent.getStringExtra("categoryName")
 
         presenter.attachView(this)
 
-        tvClickedTextVal.text = intent.getStringExtra("categoryName")
+        tvClickedTextVal.text = clickedCategory
 
         lvProducts.adapter = productsAdapter
         lvProducts.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
