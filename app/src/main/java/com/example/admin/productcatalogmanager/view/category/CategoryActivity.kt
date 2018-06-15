@@ -1,6 +1,7 @@
 package com.example.admin.productcatalogmanager.view.category
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.admin.productcatalogmanager.R
 import com.example.admin.productcatalogmanager.model.Product
+import com.example.admin.productcatalogmanager.view.product.ProductActivity
 import kotlinx.android.synthetic.main.activity_category.*
 import java.text.NumberFormat
 import java.util.*
@@ -45,7 +47,9 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
 
         lvProducts.adapter = productsAdapter
         lvProducts.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
-            Toast.makeText(this, "Click on " + products[position].name, Toast.LENGTH_SHORT).show()
+            var intent: Intent = Intent(this@CategoryActivity, ProductActivity::class.java)
+            intent.putExtra("clickedProduct", products[position].name)
+            startActivity(intent)
         }
     }
 
